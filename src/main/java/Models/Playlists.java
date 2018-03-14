@@ -37,6 +37,9 @@ public class Playlists {
         catch(ArangoDBException e){
             e.printStackTrace();
         }
+        finally {
+            //arangoDB.shutdown();
+        }
 
         return playlistObject.toString();
     }
