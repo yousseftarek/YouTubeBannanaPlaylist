@@ -1,4 +1,4 @@
 package Commands.Delete;
 
-public class DeletePlaylists {
+public class DeletePlaylists{
 }
