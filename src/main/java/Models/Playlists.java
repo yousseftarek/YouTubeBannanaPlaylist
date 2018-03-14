@@ -9,6 +9,14 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public class Playlists {
+
+    final String dbName = "playlists";
+    final String collectionName = "firstPlaylist";
+
+    public static String getPlaylistById(int id){
+        ArangoDB arangoDB = new ArangoDB.Builder().build();
+    }
+
 }
 
 /*
