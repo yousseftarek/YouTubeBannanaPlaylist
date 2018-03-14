@@ -1,4 +1,10 @@
 package Commands.Delete;
 
-public class DeletePlaylists{
+import Commands.Command;
+
+public class DeletePlaylists extends Command{
+    @Override
+    protected void execute() {
+
+    }
 }
