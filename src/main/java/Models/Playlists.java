@@ -10,11 +10,35 @@ import java.util.ArrayList;
 
 public class Playlists {
 
-    final String dbName = "playlists";
-    final String collectionName = "firstPlaylist";
+    final static String dbName = "playlists";
+    final static String collectionName = "firstPlaylist";
 
+    //returns  a specific playlist by id
     public static String getPlaylistById(int id){
         ArangoDB arangoDB = new ArangoDB.Builder().build();
+        JSONObject playlistObject = new JSONObject();
+
+        try{
+            BaseDocument myDocument = arangoDB.db(dbName).collection(collectionName).getDocument("" + id,
+                    BaseDocument.class);
+            playlistObject.put("id",myDocument.getId());
+            playlistObject.put("title", myDocument.getAttribute("title"));
+            playlistObject.put("channel_id",myDocument.getAttribute("channel_id"));
+            playlistObject.put("description",myDocument.getAttribute("description"));
+            playlistObject.put("views_count",myDocument.getAttribute("views_count"));
+            playlistObject.put("videos_count",myDocument.getAttribute("videos_count"));
+            playlistObject.put("videos",myDocument.getAttribute("videos"));
+            playlistObject.put("created_on",myDocument.getAttribute("created_on"));
+            playlistObject.put("last_updated_on",myDocument.getAttribute("last_updated_on"));
+            playlistObject.put("privacy",myDocument.getAttribute("privacy"));
+            playlistObject.put("playlist_type",myDocument.getAttribute("playlist_type"));
+
+        }
+        catch(ArangoDBException e){
+            e.printStackTrace();
+        }
+
+        return playlistObject.toString();
     }
 
 }
