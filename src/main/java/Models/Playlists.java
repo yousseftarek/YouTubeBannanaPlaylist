@@ -64,6 +64,10 @@ public class Playlists {
 
         return true + "";
     }
+
+    public static String postPlaylistByID(int id, String title, int channel_id, String description, int views_count, int videos_count, String privacy , String playlist_type, JSONArray videos){
+        return "";
+    }
 }
 
 /*
