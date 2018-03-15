@@ -39,7 +39,7 @@ public class DeletePlaylists extends Command {
         AMQP.BasicProperties properties = (AMQP.BasicProperties) props.get("properties");
         AMQP.BasicProperties replyProps = (AMQP.BasicProperties) props.get("replyProps");
         Envelope envelope = (Envelope) props.get("envelope");
-        String response = Playlists.deletePlaylistByID(id); //Gets channels subscribed by id
+        String response = Playlists.deletePlaylistByID(id);
         try {
             channel.basicPublish("", properties.getReplyTo(), replyProps, response.getBytes("UTF-8"));
             channel.basicAck(envelope.getDeliveryTag(), false);
