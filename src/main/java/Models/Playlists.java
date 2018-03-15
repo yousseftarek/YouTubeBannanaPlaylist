@@ -45,7 +45,7 @@ public class Playlists {
 
     }
 
-    public static String deletePlaylistByID ( int id, int subID){
+    public static String deletePlaylistByID ( int id){
         ArangoDB arangoDB = new ArangoDB.Builder().build();
         String dbName = "playlists";
         String collectionName = "firstPlaylist";
@@ -57,7 +57,6 @@ public class Playlists {
                 BaseDocument.class);
 
         ids.addAll((ArrayList<Long>) myDocument2.getAttribute("id"));
-        ids.remove(Long.valueOf(subID));
         myDocument2.updateAttribute("id", ids);
         arangoDB.db(dbName).collection(collectionName).deleteDocument("" + id);
         arangoDB.db(dbName).collection(collectionName).insertDocument(myDocument2);

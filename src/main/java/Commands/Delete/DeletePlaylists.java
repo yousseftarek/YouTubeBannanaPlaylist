@@ -16,14 +16,14 @@ import java.util.HashMap;
 public class DeletePlaylists extends Command {
 
     public static int id = 0;
-    public static int subID = 0;
+
     public void execute() {
         HashMap<String, Object> props = parameters;
         System.out.println(parameters);
         Channel channel = (Channel) props.get("channel");
         JSONParser parser = new JSONParser();
         id = 0;
-        subID = 0;
+
         try {
             JSONObject body = (JSONObject) parser.parse((String) props.get("body"));
             System.out.println(props);
@@ -31,15 +31,15 @@ public class DeletePlaylists extends Command {
             JSONObject params = (JSONObject) parser.parse(body.get("body").toString());
             id = Integer.parseInt(params.get("id").toString());
             System.out.println(id);
-            subID = Integer.parseInt(params.get("sub-id").toString());
-            System.out.println("sub id"+subID);
+
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
         AMQP.BasicProperties properties = (AMQP.BasicProperties) props.get("properties");
         AMQP.BasicProperties replyProps = (AMQP.BasicProperties) props.get("replyProps");
         Envelope envelope = (Envelope) props.get("envelope");
-        String response = Playlists.deletePlaylistByID(id,subID); //Gets channels subscribed by id
+        String response = Playlists.deletePlaylistByID(id); //Gets channels subscribed by id
         try {
             channel.basicPublish("", properties.getReplyTo(), replyProps, response.getBytes("UTF-8"));
             channel.basicAck(envelope.getDeliveryTag(), false);
