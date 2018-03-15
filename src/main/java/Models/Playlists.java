@@ -45,24 +45,24 @@ public class Playlists {
 
     }
 
-    public static String deletePlaylistByID ( int id, int subID){
+    public static String deletePlaylistByID ( int id){
         ArangoDB arangoDB = new ArangoDB.Builder().build();
         String dbName = "playlists";
         String collectionName = "firstPlaylist";
 
         ArrayList<Long> ids = new ArrayList<>();
-        //Delete sub from Document
-        //Case 1: not the only subscription
         BaseDocument myDocument2 = arangoDB.db(dbName).collection(collectionName).getDocument("" + id,
                 BaseDocument.class);
 
         ids.addAll((ArrayList<Long>) myDocument2.getAttribute("id"));
-        ids.remove(Long.valueOf(subID));
         myDocument2.updateAttribute("id", ids);
-        arangoDB.db(dbName).collection(collectionName).deleteDocument("" + id);
-        arangoDB.db(dbName).collection(collectionName).insertDocument(myDocument2);
+        try {
+            arangoDB.db(dbName).collection(collectionName).deleteDocument("" + id);
+        } catch (final ArangoDBException e) {
+            return "Failed to delete document";
+        }
 
-        return true + "";
+        return "Successfully deleted document.";
     }
 }
 
