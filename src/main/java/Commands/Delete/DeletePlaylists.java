@@ -1,5 +1,6 @@
 package Commands.Delete;
 
+
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Envelope;
@@ -46,5 +47,6 @@ public class DeletePlaylists extends Command {
             e.printStackTrace();
         }
     }
+
 
 }

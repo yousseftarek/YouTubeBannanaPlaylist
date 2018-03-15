@@ -1,4 +1,10 @@
 package Commands.Patch;
 
-public class PatchPlaylists {
+import Commands.Command;
+
+public class PatchPlaylists extends Command{
+    @Override
+    protected void execute() {
+
+    }
 }
