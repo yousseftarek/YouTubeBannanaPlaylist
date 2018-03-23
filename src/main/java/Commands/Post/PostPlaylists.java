@@ -34,6 +34,8 @@ public class PostPlaylists extends Command{
         AMQP.BasicProperties replyProps = (AMQP.BasicProperties) props.get("replyProps");
         Envelope envelope = (Envelope) props.get("envelope");
 
+        System.out.println("Posting Playlist");
+
         JSONArray videos = (JSONArray)playlist.get("videos");
         String response = Playlists.postPlaylistByID((int)playlist.get("id"),
                 (String)playlist.get("title"),(int)playlist.get("channel_id"),

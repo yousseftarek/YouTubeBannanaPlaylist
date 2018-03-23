@@ -1,5 +1,6 @@
 import Commands.Get.GetPlaylists;
 import Commands.Delete.DeletePlaylists;
+import Commands.Post.PostPlaylists;
 import com.rabbitmq.client.*;
 import Commands.Delete.DeletePlaylists;
 import Commands.Command;
@@ -44,6 +45,7 @@ public class PlaylistsService {
                         String message = new String(body, "UTF-8");
                         Command getCMD = new GetPlaylists();
                         Command deleteCMD = new DeletePlaylists();
+                        Command postCMD = new PostPlaylists();
 
                         HashMap<String, Object> props = new HashMap<String, Object>();
                         props.put("channel", channel);
@@ -53,11 +55,17 @@ public class PlaylistsService {
                         props.put("body", message);
 
                         getCMD.init(props);
+                        deleteCMD.init(props);
+                        postCMD.init(props);
 
+                        System.out.println(props.get("body").toString());
+
+                        executor.submit(postCMD);
                         executor.submit(getCMD);
+                        executor.submit(deleteCMD);
                     }
                     catch (RuntimeException e){
-
+                        e.printStackTrace();
                     }
                     finally {
                         synchronized (this){
